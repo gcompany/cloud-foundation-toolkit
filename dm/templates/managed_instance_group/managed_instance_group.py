@@ -81,8 +81,9 @@ def create_autoscaler(context, autoscaler_spec, igm):
         'properties': autoscaler_properties
     }
 
-    # Use IGM's targetSize as maxNumReplicas
-    autoscaler_properties['maxNumReplicas'] = igm_properties['targetSize']
+    # Use IGM's targetSize as maxNumReplicas if maxSize not set
+    autoscaler_properties['maxNumReplicas'] = autoscaler_properties.get(
+        'maxSize', igm_properties['targetSize'])
 
     # And rename minSize to minNumReplicas
     min_size = autoscaler_properties.pop('minSize')
@@ -242,7 +243,8 @@ def get_igm(context, template_link):
         'zone',
         'region',
         'targetSize',
-        'baseInstanceName'
+        'baseInstanceName',
+        'updatePolicy'
     ]
 
     for prop in known_properties:
