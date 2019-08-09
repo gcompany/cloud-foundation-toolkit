@@ -40,7 +40,10 @@ def generate_config(context):
     }
 
     for prop in ['privateKey', 'certificate', 'description']:
-        set_optional_property(ssl_props, properties, prop)
+        if properties.get(prop) in context.imports:
+            ssl_props[prop] = context.imports[properties[prop]]
+        else:
+            set_optional_property(ssl_props, properties, prop)
 
     return {
         'resources': [resource],

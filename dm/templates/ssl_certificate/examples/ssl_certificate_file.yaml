@@ -1,0 +1,18 @@
+# Example of the SSL certificate template usage with certificate as file.
+#
+# Replace the following placeholders with valid values:
+#   <FIXME:certificatePath>: path to the certificate file
+#   <FIXME:privateKey>: path to the private key file
+
+imports:
+  - path: templates/ssl_certificate/ssl_certificate.py
+    name: ssl_certificate.py
+  - path: <FIXME:certificatePath>
+  - path: <FIXME:privateKeyPath>
+
+resources:
+  - name: example-certificate
+    type: ssl_certificate.py
+    properties:
+      certificate: <FIXME:certificatePath>
+      privateKey: <FIXME:privateKeyPath>
